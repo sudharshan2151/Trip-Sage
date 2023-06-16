@@ -1,3 +1,0 @@
-INDEX VERSION 1.132+C:\Users\ssudh\Downloads\Desktop\dandy-religion-8340\.metadata\.plugins\org.eclipse.jdt.core
-2239262350.index
-1865797976.index
