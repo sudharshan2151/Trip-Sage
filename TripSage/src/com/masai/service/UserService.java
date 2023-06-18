@@ -14,38 +14,53 @@ package com.masai.service;
 	import java.util.List;
 	import java.util.Map;
 	import java.util.Set;
+	import java.util.HashMap;
 
-import com.masai.exception.InvaildChoiceException;;
+import com.masai.exception.InvaildChoiceException;
+import com.masai.exception.InvalidCredentialsException;;
 
 public class UserService {
 	
 
-		public void signUp(User cus, Map<String, User> customers) throws InvaildChoiceException {
+		public void signUp(User cus, Map<String, User> customers) throws InvaildChoiceException, Exception{
 
 			if (customers.containsKey(cus.getEmail())) {
 				throw new InvaildChoiceException("Customer already exists , please login");
 			} else {
+			try {
+				ObjectInputStream ois = new ObjectInputStream(new FileInputStream("credentials.ser"));
+				Map<String,User> pFile = (Map<String, User>) ois.readObject();
+				Map<String,User> k = new HashMap<>();
+				if(k!=null)
+					k.putAll(pFile);
+				k.put(cus.getEmail(),cus);
+				ObjectOutputStream ot = new ObjectOutputStream(new FileOutputStream("credentials.ser"));
+				ot.writeObject(k);
+					
 
 				customers.put(cus.getEmail(), cus);
+			}catch(Exception e) {
+				System.out.println(e.getMessage());
+			}
 
 			}
 
 		}
 
 		
-		public boolean login(String email,String password, Map<String, User> customers) throws InvaildChoiceException {
+		public boolean login(String email,String password, Map<String, User> customers) throws InvaildChoiceException, InvalidCredentialsException {
 
 			if (customers.containsKey(email) ) {
 				
 				if(customers.get(email).getPassword().equals(password)) {
 					return true;
 				}
-				else {
-					throw new InvaildChoiceException("Invalid Credentials");
+				else{
+					throw new InvalidCredentialsException("Invalid Credentials");
 				}
 				
 			} else {
-				throw new InvaildChoiceException("you have not sign up yet, please signup");
+				throw new InvalidCredentialsException("you have not sign up yet, please signup");
 			}
 
 		}
@@ -113,4 +128,4 @@ public class UserService {
 		
 	}
 
-}
+
