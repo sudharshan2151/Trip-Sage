@@ -17,6 +17,7 @@ import com.masai.utility.IDGeneration;
 public class FileExist {
 	
 	public static List<String> destination()throws IOException{
+		
 		List<String> desr = Destination.des;
 		try {
 		
@@ -36,7 +37,7 @@ public class FileExist {
 		Map<String,User> desr = new HashMap<String, User>();
 		try {
 		
-		FileOutputStream f = new FileOutputStream("credentials.ser");
+		FileOutputStream f = new FileOutputStream("credentialsUser.ser");
 		ObjectOutputStream os = new ObjectOutputStream(f);
 		
 		os.writeObject(desr);
@@ -48,6 +49,7 @@ public class FileExist {
 		return desr;
 	}
 	
+
 	public static Map<String,User> accomadations() throws Exception{
 		Map<String,User> desr = new HashMap<String, User>();
 		try {
@@ -64,6 +66,7 @@ public class FileExist {
 		return desr;
 	}
 	
+	
 	public static Map<String, List<Destination>> flights() throws Exception{
 	    Map<String, List<Destination>> destinationDates = new HashMap<>();
 	    
@@ -73,7 +76,7 @@ public class FileExist {
 	    k.add(new Destination(IDGeneration.generateId(),"2023-07-15", "11:00 AM - 1:00 PM"));
 	    k.add(new Destination(IDGeneration.generateId(),"2023-07-20", "9:00 AM - 11:00 AM"));
 	 
-	    destinationDates.put("Paris", k);
+	    destinationDates.put("paris", k);
 	    
 	    
 	    
@@ -85,14 +88,14 @@ public class FileExist {
 	    london.add(new Destination(IDGeneration.generateId(),"2023-08-15", "11:30 AM - 1:30 PM"));
 	    
 	    
-	    destinationDates.put("London", london);
+	    destinationDates.put("london", london);
 	    
 	    List<Destination> newYork = new ArrayList();
 	    london.add(new Destination(IDGeneration.generateId(),"2023-09-01", "8:00 AM - 10:00 AM"));
 	    london.add(new Destination(IDGeneration.generateId(),"2023-09-07", "9:30 AM - 11:30 AM"));
 	    london.add(new Destination(IDGeneration.generateId(),"2023-09-15", "10:00 AM - 12:00 PM"));
 	    
-	    destinationDates.put("NewYork", newYork);
+	    destinationDates.put("newYork", newYork);
 	    
 	    
 	    List<Destination> bangalore = new ArrayList();
@@ -107,12 +110,12 @@ public class FileExist {
 	    chennai.add(new Destination(IDGeneration.generateId(),"2023-09-15", "11:00 AM - 1:00 PM"));
 	    
 	    
-	    destinationDates.put("Chennai", chennai);
+	    destinationDates.put("chennai", chennai);
 	    
-	    destinationDates.put("Bangalore",bangalore);
+	    destinationDates.put("bangalore",bangalore);
 
 	    try {
-	        ObjectOutputStream ois = new ObjectOutputStream(new FileOutputStream("buses.ser"));
+	        ObjectOutputStream ois = new ObjectOutputStream(new FileOutputStream("flights.ser"));
 	        ois.writeObject(destinationDates);
 	    } catch(Exception e) {
 	        System.out.println(e.getMessage());
@@ -134,7 +137,7 @@ public class FileExist {
 	    k.add(new Destination(IDGeneration.generateId(),"2023-07-15", "11:00 AM - 1:00 PM"));
 	    k.add(new Destination(IDGeneration.generateId(),"2023-07-20", "9:00 AM - 11:00 AM"));
 	 
-	    destinationDates.put("Paris", k);
+	    destinationDates.put("paris", k);
 	    
 	    
 	    
@@ -146,14 +149,14 @@ public class FileExist {
 	    london.add(new Destination(IDGeneration.generateId(),"2023-08-15", "11:30 AM - 1:30 PM"));
 	    
 	    
-	    destinationDates.put("London", london);
+	    destinationDates.put("london", london);
 	    
 	    List<Destination> newYork = new ArrayList();
 	    london.add(new Destination(IDGeneration.generateId(),"2023-09-01", "8:00 AM - 10:00 AM"));
 	    london.add(new Destination(IDGeneration.generateId(),"2023-09-07", "9:30 AM - 11:30 AM"));
 	    london.add(new Destination(IDGeneration.generateId(),"2023-09-15", "10:00 AM - 12:00 PM"));
 	    
-	    destinationDates.put("NewYork", newYork);
+	    destinationDates.put("newYork", newYork);
 	    
 	    
 	    List<Destination> bangalore = new ArrayList();
@@ -168,9 +171,9 @@ public class FileExist {
 	    chennai.add(new Destination(IDGeneration.generateId(),"2023-09-15", "11:00 AM - 1:00 PM"));
 	    
 	    
-	    destinationDates.put("Chennai", chennai);
+	    destinationDates.put("chennai", chennai);
 	    
-	    destinationDates.put("Bangalore",bangalore);
+	    destinationDates.put("cangalore",bangalore);
 
 	    try {
 	        ObjectOutputStream ois = new ObjectOutputStream(new FileOutputStream("buses.ser"));
@@ -235,6 +238,41 @@ public class FileExist {
 		return desr;
 	}
 	
+	public static Map<String,Destination> cancel() {
+
+		Map<String,Destination>tFile =null;
+
+		File f = new File("cancels.ser");
+		boolean flag = false;
+		try {
+			if (!f.exists()) {
+				f.createNewFile();
+				flag = true;
+			}
+
+			if (flag) {
+				tFile =  new HashMap<>();
+				ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(f));
+				oos.writeObject(tFile);
+
+				return tFile;
+
+			} else {
+
+				ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
+				tFile = (Map<String,Destination>) ois.readObject();
+				return tFile;
+
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+
+		return tFile;
+
+	}
 	
 
 }
