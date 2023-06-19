@@ -1,8 +1,10 @@
 package com.masai.service;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 public class Bookings implements Serializable{
-	int price;
+	int price ;
 	String destination;
 	String transport;
 	int noOfPassenger;
@@ -48,6 +50,16 @@ public class Bookings implements Serializable{
 				+ ", email=" + email + "]";
 	}
 	
+	public static void printDesti(List<Bookings> booking) {
+		for(int i=0;i<booking.size();i++) {
+			System.out.println(booking.get(i));
+		}
+	}
+	public static void printCancel(Map<String,Destination> cancelations) {
+		for(String a : cancelations.keySet()) {
+			System.out.println(a +" "+cancelations.get(a).toString());
+		}
+	}
 	
 	
 }

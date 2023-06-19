@@ -114,7 +114,7 @@ public class UserService {
 
 		
 
-		public User viewCustomerDetails(String email, Map<String, User> customers) {
+		public static User viewCustomerDetails(String email, Map<String, User> customers) throws InvaildChoiceException {
 
 			if (customers.containsKey(email)) {
 
@@ -122,10 +122,17 @@ public class UserService {
 
 			}
 
-			return null;
-		}
-
+			else {		
+				throw new InvaildChoiceException(" No customer available with this Email");
+				}
+			}
 		
+
+		public static void viewAllUser(Map<String,User> user) {
+			for( String a : user.keySet()) {
+				System.out.println(user.get(a).toString());
+			}
+		}
 	}
 
 
